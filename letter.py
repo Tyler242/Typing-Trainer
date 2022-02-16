@@ -1,6 +1,12 @@
 import random
 import pygame
 
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GREEN = (0, 128, 0)
+ORANGE = (255, 165, 0)
+RED = (255, 0, 0)
+
 class Letter:
     def __init__(self, char, start_x, start_y):
         self.char = char
