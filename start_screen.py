@@ -64,10 +64,9 @@ class StartScreen():
         self.draw_text(screen, welcome_text, 500, 155)        # top middle
 
         # Button and text
-        font = pygame.font.Font(None, 42)     
-        button_text = font.render("  Start Game  ", True, WHITE)
+        font = pygame.font.Font(None, 48)     
+        button_text = font.render("  Click Screen to Start Game  ", True, WHITE)
         button = button_text.get_rect()
         button.center = (500, 307) # bottom middle
-        pygame.draw.rect(screen, BLACK, button, 100) 
         screen.blit(button_text, button)   
 
