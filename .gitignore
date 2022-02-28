@@ -1,0 +1,5 @@
+typing-trainer-venv
+venv
+alecvenv
+__pycache__/
+*.pyc

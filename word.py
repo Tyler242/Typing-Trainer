@@ -4,11 +4,14 @@ Caleb Rasmussen
 This file holds the implementation for the Word class.
 """
 
+from letter import Letter
+
 import pygame
 import random
 
 # RGB colors
 BLACK = (0, 0, 0)
+RED = (255, 0, 0)
 
 
 class Word:
@@ -36,6 +39,15 @@ class Word:
 
         self.velocity = 2   # level 1, starting speed
 
+        self.letters = []
+
+        current_x = start_x
+
+        for char in self.word:
+            letter = Letter(char, current_x, start_y)
+            self.letters.append(letter)
+            current_x += letter.get_width()
+
         self.on_screen = True  # word is on screen
 
     # Returns current word as string
@@ -45,6 +57,8 @@ class Word:
     # Moves word left based on velocity
     def move_left(self):
         self.x -= self.velocity
+        for letter in self.letters:
+            letter.move_left(self.velocity)
 
     # Draws text to the screen
     def draw_text(self, screen, text, x, y):
@@ -56,9 +70,8 @@ class Word:
     def draw(self, screen):
         # If words is in bounds
         if self.x > -100:
-            font = pygame.font.Font(None, 42)
-            text = font.render(self.word, True, BLACK)
-            self.draw_text(screen, text, self.x, self.y)
+            for letter in self.letters:
+                letter.draw(screen)
         else:
             self.on_screen = False      # word went off screen
 
@@ -66,7 +79,25 @@ class Word:
     def new_word(self):
         self.word = self.word_list[random.randint(0, len(self.word_list) - 1)]         # new random word from list
         
+        self.letters = []
+
         self.x = self.start_x       # resets x and y to orginal init values
         self.y = self.start_y
+        
+        current_x = self.x
+
+        for char in self.word:
+            letter = Letter(char, current_x, self.start_y)
+            self.letters.append(letter)
+            current_x += letter.get_width()
 
         self.on_screen = True  # word is on screen
+
+    def show_completion(self, text):
+        if text in self.word and len(text) <= len(self.word):
+            for char in enumerate(text):
+                if char[1] == self.letters[char[0]].char:
+                    self.letters[char[0]].color = RED
+        else:
+            for letter in self.letters:
+                letter.color = BLACK

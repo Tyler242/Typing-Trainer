@@ -111,6 +111,9 @@ class MainScreen():
 
             else:
                 self.user_text += event.unicode      # adds character to user_text
+
+            for word in self.screen_words:
+                    word.show_completion(self.user_text)
         
     # Draws all main screen elements
     def draw(self, screen):
