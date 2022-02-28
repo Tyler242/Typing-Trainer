@@ -44,7 +44,12 @@ class Word:
         current_x = start_x
 
         for char in self.word:
-            letter = Letter(char, current_x, start_y)
+
+            font = pygame.font.Font(None, 42)
+            text = font.render(char, True, BLACK)
+            char_width = text.get_width()
+
+            letter = Letter(char, current_x + (char_width / 2), start_y)
             self.letters.append(letter)
             current_x += letter.get_width()
 
@@ -87,7 +92,11 @@ class Word:
         current_x = self.x
 
         for char in self.word:
-            letter = Letter(char, current_x, self.start_y)
+            font = pygame.font.Font(None, 42)
+            text = font.render(char, True, BLACK)
+            char_width = text.get_width()
+
+            letter = Letter(char, current_x + (char_width / 2), self.start_y)
             self.letters.append(letter)
             current_x += letter.get_width()
 
