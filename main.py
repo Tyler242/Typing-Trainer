@@ -60,7 +60,7 @@ def main():
                 # Restart
                 if current_screen.get_restart() == True:
                     print("restart")
-                    current_screen = MainScreen(filename)
+                    current_screen = MainScreen(filename, wpm)
                     screen_count -= 1
 
                 # Quit

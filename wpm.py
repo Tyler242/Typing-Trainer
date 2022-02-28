@@ -3,6 +3,7 @@
     for tracking the users words per minute
 """
 import pygame
+import time
 # start a clock that will count the seconds from when the game starts.
 # each time a word is entered correctly, calculate the words per minute and update it
 # each time a word is entered incorrectly, calculate the words per minute with a penalty.
@@ -16,12 +17,14 @@ class Speed:
         self.y = 25
 
     def start_clock(self):
-        self.start_time = pygame.time.get_ticks()
+        self.start_time = time.time()
+        self.correct_words = 0
         self._compute_wpm()
 
     def correct_word(self):
         # calculate and update WPM if the user entered a word correctly
         print("correct word entered")
+        self.correct_words += 1
         self._compute_wpm()
 
     def incorrect_word(self):
@@ -31,8 +34,9 @@ class Speed:
 
     def _compute_wpm(self):
         # compute the words per minute
-        elapsed_time = (self.start_time - pygame.time.get_ticks())
-        print(elapsed_time)
+        elapsed_time = (time.time() - self.start_time)
+        print("Words per second: ", (elapsed_time/self.correct_words)
+              if self.correct_words > 0 else 0)
 
     def draw_text(self, screen, text, x, y):
         # draw the WPM value on the screen
