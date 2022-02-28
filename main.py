@@ -26,7 +26,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HIEGHT))
 
     # Load the background image
-    background = pygame.image.load("jungle.jpg")
+    background = pygame.image.load("desert.jpg")
     pygame.display.set_caption('Jungle Typer')
 
     # Loop variables
