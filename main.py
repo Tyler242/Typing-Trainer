@@ -51,15 +51,22 @@ def main():
                 wpm.start_clock()
                 screen_count += 1
 
-            elif screen_count == 1:         # end
+            elif screen_count == 1:         # End Screen
                 score = current_screen.get_score()
                 current_screen = EndScreen(score)
                 screen_count += 1
 
-            # End program if there are no more screen
-            else:
-                pygame.quit()
-                quit()
+            elif screen_count == 2:
+                # Restart
+                if current_screen.get_restart() == True:
+                    print("restart")
+                    current_screen = MainScreen(filename)
+                    screen_count -= 1
+
+                # Quit
+                else:
+                    pygame.quit()
+                    quit()
 
         # Sends program events to current screen
         for event in pygame.event.get():
