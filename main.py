@@ -11,13 +11,14 @@ import pygame
 from main_screen import MainScreen
 from start_screen import StartScreen
 from end_screen import EndScreen
+from wpm import Speed
 
 
 # MAIN
 def main():
 
     # Initaialize pygame
-    pygame.init() 
+    pygame.init()
     clock = pygame.time.Clock()
 
     # Set screen dimensions
@@ -33,7 +34,7 @@ def main():
     filename = "words.txt"
     screen_count = 0
     current_screen = StartScreen()
-
+    wpm = Speed()
 
     # Runs the program
     while True:
@@ -45,7 +46,9 @@ def main():
         # Changes screens if necessary
         if current_screen.end() == True:
             if screen_count == 0:           # main
-                current_screen = MainScreen(filename)
+                current_screen = MainScreen(filename, wpm)
+                # start a clock for tracking the users WPM
+                wpm.start_clock()
                 screen_count += 1
 
             elif screen_count == 1:         # end
@@ -62,7 +65,7 @@ def main():
         for event in pygame.event.get():
             current_screen.handle_event(event)
 
-        # Update program    
+        # Update program
         clock.tick(60)
         pygame.display.update()
 
