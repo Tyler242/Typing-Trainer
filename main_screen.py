@@ -8,7 +8,8 @@ class.
 import pygame
 from word import Word
 from score import Score
-from wpm import Speed
+from timer import Timer
+from wpm import WPM
 
 # RGB Colors
 WHITE = (255, 255, 255)
@@ -39,13 +40,13 @@ class MainScreen():
     """
 
     # Init: sets default values
-    def __init__(self, filename, wpm):
-        self.wpm = wpm
+    def __init__(self, filename):
         self.score = Score()
+        self.time = Timer(60)
         self.user_text = ""
         self.level = 1
         self.level_cut = 50
-        self.lives = 5
+        self.wpm = WPM()
         self.screen_end = False
 
         # Load a file of a words into a list, word_list
@@ -75,7 +76,7 @@ class MainScreen():
     # Handles game logic of lives, leveling up and word location
     def handle_logic(self):
         # If there no lives, end screen
-        if self.lives <= 0:
+        if self.time.get_curr_time() >= self.time.end_time:
             self.screen_end = True
 
         # Level up
@@ -86,7 +87,6 @@ class MainScreen():
         for word in self.screen_words:
             if word.on_screen == False:
                 word.new_word()     # reset word
-                self.lives -= 1     # dock a lif
 
     # Handles game events
     def handle_event(self, event):
@@ -109,11 +109,12 @@ class MainScreen():
                 for word in self.screen_words:
                     if self.user_text == word.get_word():        # if word is correct
                         word_found = True
-                        self.wpm.correct_word()
+                        self.wpm.correct_word(
+                            self.time.get_curr_time())
                         self.score.add(len(word.get_word()))     # add to score
                         word.new_word()                     # word reset
-                if not word_found:
-                    self.wpm.incorrect_word()
+                # if not word_found:
+
                 self.user_text = ""     # reset user text
 
             else:
@@ -126,7 +127,7 @@ class MainScreen():
     def draw(self, screen):
         self.score.draw(screen)            # score counter
         self.draw_level(screen)            # level counter
-        self.draw_lives(screen)            # lives counter
+        self.wpm.config_text(screen)       # wpm counter
         self.draw_input(screen)            # input box and text
 
         # Draws and moves words on scren
@@ -160,26 +161,26 @@ class MainScreen():
         self.draw_text(screen, text, 80, 25)        # top left corner
 
     # Draws the lives counter on the screen with colors
-    def draw_lives(self, screen):
-        color = BLACK
+    # def draw_lives(self, screen):
+    #     color = BLACK
 
-        # Draws "Lives: "
-        font = pygame.font.Font(None, 52)
-        text = font.render("Lives: ", True, color)
-        self.draw_text(screen, text, 80, 436)       # bottom left corner
+    #     # Draws "Lives: "
+    #     font = pygame.font.Font(None, 52)
+    #     text = font.render("Lives: ", True, color)
+    #     self.draw_text(screen, text, 80, 436)       # bottom left corner
 
-        # Sets color of lives based on number of lives
-        if self.lives >= 4:
-            color = GREEN
-        elif self.lives >= 2:
-            color = ORANGE
-        else:
-            color = RED
+    #     # Sets color of lives based on number of lives
+    #     if self.lives >= 4:
+    #         color = GREEN
+    #     elif self.lives >= 2:
+    #         color = ORANGE
+    #     else:
+    #         color = RED
 
-        # Draws number of lives
-        text = font.render(str(self.lives), True, color)
-        # bottom left corner next to lives
-        self.draw_text(screen, text, 140, 436)
+    #     # Draws number of lives
+    #     text = font.render(str(self.lives), True, color)
+    #     # bottom left corner next to lives
+    #     self.draw_text(screen, text, 140, 436)
 
     # Levels up by increase speed
     def level_up(self):
@@ -188,4 +189,4 @@ class MainScreen():
 
         self.level_cut += 50    # next level cut off
         self.level += 1         # next level
-        self.lives = 5          # reset lives
+        # self.lives = 5          # reset lives
