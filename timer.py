@@ -12,5 +12,5 @@ class Timer():
         self.start_time = time.time()
         self.end_time = self.duration
 
-    def get_curr_time(self):
+    def get_curr_time(self) -> float:
         return time.time() - self.start_time
