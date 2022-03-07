@@ -51,10 +51,10 @@ class MainScreen():
             self.word_list = file.read().splitlines()
 
         # Init 3 words and put into screen words list
-        word1 = Word(self.word_list, 1100, 150)
-        word2 = Word(self.word_list, 1500, 225)
-        word3 = Word(self.word_list, 1900, 300)
-        self.screen_words = [word1, word2, word3]
+        word1 = Word(self.word_list, 1000, 150)
+        # word2 = Word(self.word_list, 1500, 225)
+        # word3 = Word(self.word_list, 1900, 300)
+        self.screen_words = [word1]
 
     # Returns the current score as an int
     def get_score(self):
@@ -176,7 +176,7 @@ class MainScreen():
     # Levels up by increase speed
     def level_up(self):
         for word in self.screen_words:
-            word.velocity += 1      # Increases speed
+            word.velocity += 1     # Increases speed
 
         self.level_cut += 50    # next level cut off
         self.level += 1         # next level

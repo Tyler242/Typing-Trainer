@@ -30,7 +30,7 @@ def main():
     pygame.display.set_caption('Jungle Typer')
 
     # Loop variables
-    filename = "words.txt"
+    filename = "poetry.txt"
     screen_count = 0
     current_screen = StartScreen()
 

@@ -37,7 +37,7 @@ class Word:
         self.x = start_x    # Moving x and y
         self.y = start_y
 
-        self.velocity = 2   # level 1, starting speed
+        self.velocity = .5   # level 1, starting speed
 
         self.letters = []
 
@@ -74,7 +74,7 @@ class Word:
     # Draws word to the screen
     def draw(self, screen):
         # If words is in bounds
-        if self.x > -100:
+        if self.x > -40:
             for letter in self.letters:
                 letter.draw(screen)
         else:
