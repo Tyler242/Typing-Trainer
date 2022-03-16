@@ -28,7 +28,7 @@ def main():
 
     # Load the background image
     background = pygame.image.load("desert.jpg")
-    pygame.display.set_caption('Jungle Typer')
+    pygame.display.set_caption('Desert Typer')
 
     # Loop variables
     filename = "words.txt"
