@@ -64,6 +64,10 @@ class MainScreen():
         current_score = self.score.get_score()
         return current_score
 
+    # Returns the current words per minute
+    def get_wpm(self):
+        return self.wpm.curr_wpm
+
     # Returns the state of the screen
     def end(self):
         return self.screen_end
