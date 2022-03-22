@@ -64,6 +64,10 @@ class MainScreen():
         current_score = self.score.get_score()
         return current_score
 
+    # Returns the current words per minute
+    def get_wpm(self):
+        return self.wpm.curr_wpm
+
     # Returns the state of the screen
     def end(self):
         return self.screen_end
@@ -159,28 +163,6 @@ class MainScreen():
         level_str = "Level: " + str(self.level)
         text = font.render(level_str, True, BLACK)
         self.draw_text(screen, text, 80, 25)        # top left corner
-
-    # Draws the lives counter on the screen with colors
-    # def draw_lives(self, screen):
-    #     color = BLACK
-
-    #     # Draws "Lives: "
-    #     font = pygame.font.Font(None, 52)
-    #     text = font.render("Lives: ", True, color)
-    #     self.draw_text(screen, text, 80, 436)       # bottom left corner
-
-    #     # Sets color of lives based on number of lives
-    #     if self.lives >= 4:
-    #         color = GREEN
-    #     elif self.lives >= 2:
-    #         color = ORANGE
-    #     else:
-    #         color = RED
-
-    #     # Draws number of lives
-    #     text = font.render(str(self.lives), True, color)
-    #     # bottom left corner next to lives
-    #     self.draw_text(screen, text, 140, 436)
 
     # Levels up by increase speed
     def level_up(self):

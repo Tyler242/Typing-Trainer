@@ -52,7 +52,8 @@ def main():
 
             elif screen_count == 1:         # End Screen
                 score = current_screen.get_score()
-                current_screen = EndScreen(score)
+                wpm = current_screen.get_wpm()
+                current_screen = EndScreen(score, wpm)
                 screen_count += 1
 
             elif screen_count == 2:
