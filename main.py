@@ -12,6 +12,7 @@ from main_screen import MainScreen
 from start_screen import StartScreen
 from end_screen import EndScreen
 from timer import Timer
+import streamlit as st
 
 
 # MAIN
@@ -75,4 +76,4 @@ def main():
 
 
 # Start program
-main()
+st.write(main())
