@@ -8,8 +8,6 @@ game classes and methods.
 
 # Libraries and classes
 import streamlit as st
-import os
-os.environ['SDL_VIDEODRIVER'] = 'dummy'
 from timer import Timer
 from end_screen import EndScreen
 from start_screen import StartScreen
