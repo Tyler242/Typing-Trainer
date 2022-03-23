@@ -29,7 +29,8 @@ class Word:
     # Init with random word, and a starting postion
     def __init__(self, word_list, start_x, start_y):
         self.word_list = word_list
-        self.word = word_list[random.randint(0, len(self.word_list) - 1)]      # Generates random word
+        # Generates random word
+        self.word = word_list[random.randint(0, len(self.word_list) - 1)]
 
         self.start_x = start_x  # X and Y for reset
         self.start_y = start_y
@@ -68,7 +69,7 @@ class Word:
     # Draws text to the screen
     def draw_text(self, screen, text, x, y):
         text_rect = text.get_rect()
-        text_rect.center = (x, y) 
+        text_rect.center = (x, y)
         screen.blit(text, text_rect)
 
     # Draws word to the screen
@@ -82,13 +83,14 @@ class Word:
 
     # Loads a new word and resets x and y
     def new_word(self):
-        self.word = self.word_list[random.randint(0, len(self.word_list) - 1)]         # new random word from list
-        
+        # new random word from list
+        self.word = self.word_list[random.randint(0, len(self.word_list) - 1)]
+
         self.letters = []
 
         self.x = self.start_x       # resets x and y to orginal init values
         self.y = self.start_y
-        
+
         current_x = self.x
 
         for char in self.word:
