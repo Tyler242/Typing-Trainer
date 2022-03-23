@@ -7,12 +7,14 @@ game classes and methods.
 """
 
 # Libraries and classes
-import pygame
-from main_screen import MainScreen
-from start_screen import StartScreen
-from end_screen import EndScreen
-from timer import Timer
 import streamlit as st
+import os
+os.environ['SDL_VIDEODRIVER'] = 'dummy'
+from timer import Timer
+from end_screen import EndScreen
+from start_screen import StartScreen
+from main_screen import MainScreen
+import pygame
 
 
 # MAIN
