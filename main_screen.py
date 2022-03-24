@@ -9,6 +9,9 @@ import pygame
 from word import Word
 from score import Score
 
+import os.path
+from os import path
+
 # RGB Colors 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

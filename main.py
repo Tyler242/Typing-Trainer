@@ -50,6 +50,7 @@ def main():
 
             elif screen_count == 1:         # End Screen
                     score = current_screen.get_score()
+                    
                     current_screen = EndScreen(score)
                     screen_count += 1
             
