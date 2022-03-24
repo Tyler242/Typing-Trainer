@@ -109,10 +109,12 @@ class MainScreen():
             elif event.key == pygame.K_RETURN:
                 for word in self.screen_words:
                     if self.user_text == word.get_word():        # if word is correct
-                        self.wpm.correct_word(
-                            self.time.get_curr_time())
+                        # self.wpm.correct_word(
+                        #     self.time.get_curr_time())
                         self.score.add(len(word.get_word()))     # add to score
-                        word.new_word()                     # word reset
+                    word.new_word()
+                    self.poetry_words = word.get_word().split()
+                    # word reset
                 # if not word_found:
 
                 self.user_text = ""     # reset user text
@@ -120,15 +122,14 @@ class MainScreen():
             elif event.key == pygame.K_SPACE:
                 # compare the users most recent word, based on spaces
                 # with the poetry queue
-                # if len(self.user_text)
-                self.user_text = self.user_text + ' '
-                recent_word = self.user_text.split()[-1]
-                if recent_word == self.poetry_words[0]:
-                    print('words match')
-                    del self.poetry_words[0]
-                    self.wpm.correct_word(self.time.get_curr_time())
+                if len(self.user_text) > 0:
+                    self.user_text = self.user_text + ' '
+                    recent_word = self.user_text.split()[-1]
+                    if recent_word == self.poetry_words[0]:
+                        del self.poetry_words[0]
+                        self.wpm.correct_word(self.time.get_curr_time())
                 else:
-                    print('no match')
+                    print(self.user_text)
             else:
                 self.user_text += event.unicode      # adds character to user_text
 
