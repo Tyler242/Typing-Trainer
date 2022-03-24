@@ -57,8 +57,8 @@ def main():
             elif screen_count == 2:
                 # Restart
                 if current_screen.get_restart() == True:
-                    current_screen = MainScreen(filename)
-                    screen_count -= 1
+                    current_screen = StartScreen()
+                    screen_count = 0
 
                 # Quit
                 else:

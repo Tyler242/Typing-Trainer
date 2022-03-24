@@ -7,7 +7,7 @@ class.
 
 import pygame
 
-# RGB Colors 
+# RGB Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
@@ -29,11 +29,12 @@ class StartScreen():
     # Init: sets default values
     def __init__(self):
         self.screen_end = False
-        
+        self.game_mode = ""
+
     # Runs the program through other methods
     def run(self, screen):
         self.draw(screen)       # draws elements to screen
-    
+
     # Returns the state of the screen
     def end(self):
         return self.screen_end
@@ -41,32 +42,56 @@ class StartScreen():
     # Handles typing game events
     def handle_event(self, event):
         # Quits program on exit
-        if event.type == pygame.QUIT:      
-                pygame.quit()
-                quit()
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
 
-        # If mouse button is clicked
+        # If mouse button is clicked, end screen
         if event.type == pygame.MOUSEBUTTONDOWN:
-            self.screen_end = True
-            # TODO: add button cordinates 
+            mouse = pygame.mouse.get_pos()
+
+            # Words button
+            if 240 <= mouse[0] <= 440 and 278 <= mouse[1] <= 308:
+                self.game_mode = "words"
+                self.screen_end = True
+
+            # Poerty button
+            elif 540 <= mouse[0] <= 740 and 278 <= mouse[1] <= 308:
+                self.game_mode = "words"  # TODO: change to poerty
+                self.screen_end = True
 
     # Draws text to the screen
     def draw_text(self, screen, text, x, y):
         text_rect = text.get_rect()
-        text_rect.center = (x, y) 
+        text_rect.center = (x, y)
         screen.blit(text, text_rect)
 
-    # Draws all screen elements: welcome message, and start button
-    def draw(self, screen):
-        # Draws welcome message
-        font = pygame.font.Font(None, 56)     
-        welcome_text = font.render("Welcome to Jungle Typer!", True, BLACK)
+    # Draws welcome message on the middle of screen
+    def draw_welcome_message(self, screen):
+        font = pygame.font.Font(None, 56)
+        welcome_text = font.render("Welcome to Western Type!", True, BLACK)
         self.draw_text(screen, welcome_text, 500, 155)        # top middle
 
-        # Button and text
-        font = pygame.font.Font(None, 48)     
-        button_text = font.render("  Click Screen to Start Game  ", True, WHITE)
-        button = button_text.get_rect()
-        button.center = (500, 307) # bottom middle
-        screen.blit(button_text, button)   
+        # Game mode message
+        font = pygame.font.Font(None, 36)
+        text = font.render("Please select a game mode below:", True, BLACK)
+        self.draw_text(screen, text, 500, 200)
 
+    # Draws single words mode button on screen
+
+    def draw_words_button(self, screen):
+        font = pygame.font.Font(None, 42)
+        text = font.render("Single Words", True, WHITE)
+        screen.blit(text, (255, 280))
+
+    # Draws poerty lines mode button on screen
+    def draw_poerty_button(self, screen):
+        font = pygame.font.Font(None, 42)
+        text = font.render("Poerty Lines", True, WHITE)
+        screen.blit(text, (555, 280))
+
+    # Draws all main screen elements: final score and quit button
+    def draw(self, screen):
+        self.draw_welcome_message(screen)
+        self.draw_words_button(screen)
+        self.draw_poerty_button(screen)
