@@ -57,7 +57,7 @@ class StartScreen():
 
             # Poerty button
             elif 540 <= mouse[0] <= 740 and 278 <= mouse[1] <= 308:
-                self.game_mode = "words"  # TODO: change to poerty
+                self.game_mode = "poetry"  # TODO: change to poerty
                 self.screen_end = True
 
     # Draws text to the screen

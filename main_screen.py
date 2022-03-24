@@ -42,6 +42,7 @@ class MainScreen():
     # Init: sets default values
     def __init__(self, filename):
         self.score = Score()
+        self.game_mode = 'poetry' if filename == 'poetry.txt' else 'words'
         self.time = Timer(60)
         self.user_text = ""
         self.level = 1
@@ -55,7 +56,8 @@ class MainScreen():
 
         # Init 3 words and put into screen words list
         word1 = Word(self.word_list, 1000, 150)
-        self.poetry_words = word1.get_word().split()
+        if self.game_mode == 'poetry':
+            self.poetry_words = word1.get_word().split()
         # word2 = Word(self.word_list, 1500, 225)
         # word3 = Word(self.word_list, 1900, 300)
         self.screen_words = [word1]
@@ -92,7 +94,8 @@ class MainScreen():
         for word in self.screen_words:
             if word.on_screen == False:
                 word.new_word()  # reset word
-                self.poetry_words = word.get_word().split()
+                if self.game_mode == 'poetry':
+                    self.poetry_words = word.get_word().split()
 
     # Handles game events
     def handle_event(self, event):
@@ -111,20 +114,21 @@ class MainScreen():
 
             # Return is pressed
             elif event.key == pygame.K_RETURN:
-                word_found = False
                 for word in self.screen_words:
-                    if self.user_text == word.get_word():        # if word is correct
-                        # self.wpm.correct_word(
-                        #     self.time.get_curr_time())
+                    if self.user_text == word.get_word():
+                        if self.game_mode == 'words':
+                            # if word is correct
+                            self.wpm.correct_word(
+                                self.time.get_curr_time())
                         self.score.add(len(word.get_word()))     # add to score
                     word.new_word()
-                    self.poetry_words = word.get_word().split()
+                    if self.game_mode == 'poetry':
+                        self.poetry_words = word.get_word().split()
                     # word reset
-                # if not word_found:
 
                 self.user_text = ""     # reset user text
 
-            elif event.key == pygame.K_SPACE:
+            elif event.key == pygame.K_SPACE and self.game_mode == 'poetry':
                 # compare the users most recent word, based on spaces
                 # with the poetry queue
                 if len(self.user_text) > 0:
@@ -133,8 +137,6 @@ class MainScreen():
                     if recent_word == self.poetry_words[0]:
                         del self.poetry_words[0]
                         self.wpm.correct_word(self.time.get_curr_time())
-                else:
-                    print(self.user_text)
             else:
                 self.user_text += event.unicode      # adds character to user_text
 

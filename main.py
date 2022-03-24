@@ -7,11 +7,12 @@ game classes and methods.
 """
 
 # Libraries and classes
-import pygame
-from main_screen import MainScreen
-from start_screen import StartScreen
-from end_screen import EndScreen
+import streamlit as st
 from timer import Timer
+from end_screen import EndScreen
+from start_screen import StartScreen
+from main_screen import MainScreen
+import pygame
 
 
 # MAIN
@@ -31,7 +32,8 @@ def main():
     pygame.display.set_caption('Desert Typer')
 
     # Loop variables
-    filename = "poetry.txt"
+    filename = "words.txt"
+    filename_poetry = 'poetry.txt'
     screen_count = 0
     current_screen = StartScreen()
 
@@ -44,8 +46,12 @@ def main():
 
         # Changes screens if necessary
         if current_screen.end() == True:
-            if screen_count == 0:           # main
-                current_screen = MainScreen(filename)
+            if screen_count == 0:
+                if current_screen.game_mode == 'words':      # main
+                    current_screen = MainScreen(filename)
+                else:
+                    current_screen = MainScreen(filename_poetry)
+
                 screen_count += 1
                 # timer.start_timer()
 
@@ -76,4 +82,4 @@ def main():
 
 
 # Start program
-main()
+st.write(main())

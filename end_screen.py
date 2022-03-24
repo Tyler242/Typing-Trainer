@@ -106,6 +106,7 @@ class EndScreen():
         screen.blit(text, (305, 280))
 
     # Draws all main screen elements: final score and quit button
+
     def draw(self, screen):
         self.draw_end_message(screen)
         self.draw_score(screen)
