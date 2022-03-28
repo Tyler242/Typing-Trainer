@@ -67,7 +67,7 @@ class StartScreen():
         screen.blit(text, text_rect)
 
     # Draws all screen elements: welcome message, and start button
-    def draw(self, screen):
+    def draw_welcome_message(self, screen):
         # Draws welcome message
         font = pygame.font.Font(None, 56)
         welcome_text = font.render(
