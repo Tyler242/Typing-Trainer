@@ -11,7 +11,10 @@ from score import Score
 from timer import Timer
 from wpm import WPM
 
-# RGB Colors
+import os.path
+from os import path
+
+# RGB Colors 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 128, 0)

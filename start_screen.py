@@ -66,10 +66,12 @@ class StartScreen():
         text_rect.center = (x, y)
         screen.blit(text, text_rect)
 
-    # Draws welcome message on the middle of screen
-    def draw_welcome_message(self, screen):
+    # Draws all screen elements: welcome message, and start button
+    def draw(self, screen):
+        # Draws welcome message
         font = pygame.font.Font(None, 56)
-        welcome_text = font.render("Welcome to Western Type!", True, BLACK)
+        welcome_text = font.render(
+            "Welcome to the Fastest Fingers in the West!", True, BLACK)
         self.draw_text(screen, welcome_text, 500, 155)        # top middle
 
         # Game mode message
