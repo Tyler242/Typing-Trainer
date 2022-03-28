@@ -7,7 +7,6 @@ game classes and methods.
 """
 
 # Libraries and classes
-import streamlit as st
 from timer import Timer
 from end_screen import EndScreen
 from start_screen import StartScreen
