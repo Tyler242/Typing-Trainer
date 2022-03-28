@@ -85,4 +85,4 @@ def main():
 
 
 # Start program
-st.write(main())
+main()
