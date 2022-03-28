@@ -60,7 +60,7 @@ class StartScreen():
     def draw(self, screen):
         # Draws welcome message
         font = pygame.font.Font(None, 56)     
-        welcome_text = font.render("Welcome to Jungle Typer!", True, BLACK)
+        welcome_text = font.render("Welcome to the Fastest Fingers in the West!", True, BLACK)
         self.draw_text(screen, welcome_text, 500, 155)        # top middle
 
         # Button and text
