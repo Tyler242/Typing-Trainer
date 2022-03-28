@@ -12,6 +12,9 @@ from end_screen import EndScreen
 from start_screen import StartScreen
 from main_screen import MainScreen
 import pygame
+import os
+from pygame.locals import *
+from pygame import mixer
 
 
 # MAIN
@@ -19,7 +22,12 @@ def main():
 
     # Initaialize pygame
     pygame.init()
+    pygame.font.init()
+    pygame.mixer.init()
     clock = pygame.time.Clock()
+    mixer.music.load('jeff.mp3')
+    mixer.music.play()
+
 
     # Set screen dimensions
     SCREEN_WIDTH = 1000
