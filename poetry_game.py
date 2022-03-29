@@ -66,7 +66,7 @@ class PoetryScreen(Game):
                     if self.user_text == 'jeff':
                         self.user_text = ''
                         self.jeff_count += 1
-                        if self.jeff_count == 4:
+                        if self.jeff_count == 3:
                             self.screen_end = True
                             self.jeff_screen = True
 
