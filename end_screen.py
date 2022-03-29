@@ -29,37 +29,38 @@ class EndScreen():
     # Init: sets default values
     def __init__(self, score, wpm):
         self.score = score
+        self.jeff_screen = False
 
-        high_scores_file = open("high_scores.txt", "r")
-        names = []
-        high_scores = []
+        # high_scores_file = open("high_scores.txt", "r")
+        # names = []
+        # high_scores = []
 
-        for high_score in high_scores_file.readlines():
-            name_score = high_score.split("=")
-            names.append(name_score[0])
-            high_scores.append(name_score[1])
+        # for high_score in high_scores_file.readlines():
+        #     name_score = high_score.split("=")
+        #     names.append(name_score[0])
+        #     high_scores.append(name_score[1])
 
-        if len(high_scores) <= 5 or high_scores[5] < self.score:
-            index = 0
+        # if len(high_scores) <= 5 or high_scores[5] < self.score:
+        #     index = 0
 
-            for high_score in high_scores:
-                if int(high_score) > self.score:
-                    index += 1
+        #     for high_score in high_scores:
+        #         if int(high_score) > self.score:
+        #             index += 1
 
-            names.insert(index, "Test_Name")
-            high_scores.insert(index, self.score)
+        #     names.insert(index, "Test_Name")
+        #     high_scores.insert(index, self.score)
 
-        high_scores_size = len(high_scores)
+        # high_scores_size = len(high_scores)
 
-        if high_scores_size > 5:
-            high_scores_size = 5
+        # if high_scores_size > 5:
+        #     high_scores_size = 5
 
-        high_scores_file = open("high_scores.txt", "w")
+        # high_scores_file = open("high_scores.txt", "w")
 
-        for i in range(high_scores_size):
-            high_scores_file.writelines(f"{names[i]}={high_scores[i]}")
+        # for i in range(high_scores_size):
+        #     high_scores_file.writelines(f"{names[i]}={high_scores[i]}")
 
-        high_scores_file.close()
+        # high_scores_file.close()
 
         self.wpm = wpm
 
@@ -117,20 +118,18 @@ class EndScreen():
         text = font.render(score_str, True, BLACK)
         self.draw_text(screen, text, 500, 100)      # top middle
 
-    def draw_highscores(self, screen):
-        high_scores = open("high_scores.txt", "r")
+    # def draw_highscores(self, screen):
+    #     high_scores = open("high_scores.txt", "r")
 
-        font = pygame.font.Font(None, 50)
-        text = font.render("High Scores", True, BLACK)
-        self.draw_text(screen, text, 500, 155)
+    #     font = pygame.font.Font(None, 50)
+    #     text = font.render("High Scores", True, BLACK)
+    #     self.draw_text(screen, text, 500, 155)
 
-        for i, score in enumerate(high_scores.readlines()):
-            font = pygame.font.Font(None, 30)
-            text = font.render(score[:-1], True, BLACK)
-            self.draw_text(screen, text, 500, 205 + i * 35)
-            pass  # draw high scores
-
-        pass
+    #     for i, score in enumerate(high_scores.readlines()):
+    #         font = pygame.font.Font(None, 30)
+    #         text = font.render(score[:-1], True, BLACK)
+    #         self.draw_text(screen, text, 500, 205 + i * 35)
+    #         pass  # draw high scores
 
     #
     def draw_wpm(self, screen):
@@ -159,7 +158,7 @@ class EndScreen():
     def draw(self, screen):
         self.draw_end_message(screen)
         self.draw_score(screen)
-        self.draw_highscores(screen)
+        # self.draw_highscores(screen)
         self.draw_wpm(screen)
         self.draw_quit_button(screen)
         self.draw_restart_button(screen)

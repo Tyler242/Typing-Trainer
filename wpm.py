@@ -13,7 +13,7 @@ class WPM:
     def __init__(self):
         self.curr_wpm = 0
         self.correct_words = 0
-        self.x = 80
+        self.x = 85
         self.y = 436
 
     def correct_word(self, curr_time):

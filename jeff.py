@@ -1,69 +1,32 @@
-"""
-main_screen.py
-Caleb Rasmussen
-This file holds the implementation for the MainScreen()
-class.
-"""
-
 import pygame
 from word import Word
-from score import Score
-from timer import Timer
-from wpm import WPM
 from game import Game
 from pygame import mixer
 
 
-import os.path
-from os import path
+class Jeff(Game):
 
-# RGB Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-GREEN = (0, 128, 0)
-ORANGE = (255, 165, 0)
-RED = (255, 0, 0)
-
-
-class MainScreen(Game):
-    """
-    A class that contains the main screen of the Jungle Typer
-    game. It handles the moving words, input box, levels, scoring,
-    and lives counter.
-
-    init()
-    get_score()
-    end()
-    run(screen)
-    handle_logic()
-    handle_event(event)
-    draw(screen)
-    draw_text(screen, text, x, y)
-    draw_input(screen)
-    draw_level(screen)
-    draw_lives(screen)
-    level_up()
-    """
-
-    # Init: sets default values
     def __init__(self, filename):
         super().__init__(filename)
 
-        mixer.music.load('GameMusic.mp3')
+        mixer.music.load('jeff.mp3')
         mixer.music.play()
 
-        # Init 3 words and put into screen words list
-        word1 = Word(self.word_list, 1000, 150)
-        word2 = Word(self.word_list, 1300, 225)
-        word3 = Word(self.word_list, 1600, 300)
-        self.screen_words = [word1, word2, word3]
+        # Init 3 jeffs and put into screen words list
+        jeff1 = Word(self.word_list, 1000, 150)
+        jeff2 = Word(self.word_list, 1300, 225)
+        jeff3 = Word(self.word_list, 1600, 300)
+        jeff4 = Word(self.word_list, 1000, 300)
+        jeff5 = Word(self.word_list, 1300, 300)
+        self.screen_words = [jeff1, jeff2, jeff3, jeff4, jeff5]
 
-        self.jeff_count = 0
+        self.background = pygame.image.load('jeff.jpg')
         self.jeff_screen = False
 
-    # Runs the program through methods
+        # Runs the program through methods
     def run(self, screen):
-        self.handle_logic()     # handles game logic
+        self.handle_logic()
+        screen.blit(self.background, (0, 0))   # handles game logic
         self.draw(screen)       # draws elements to screen
 
     # Handles game logic of lives, leveling up and word location
@@ -105,13 +68,6 @@ class MainScreen(Game):
                         self.wpm.correct_word(
                             self.time.get_curr_time())
                         self.score.add(len(word.get_word()))     # add to score
-
-                    elif self.user_text == 'jeff':
-                        self.user_text = ''
-                        self.jeff_count += 1
-                        if self.jeff_count == 3:
-                            self.screen_end = True
-                            self.jeff_screen = True
 
                 self.user_text = ""     # reset user text
 

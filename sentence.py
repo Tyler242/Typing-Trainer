@@ -1,44 +1,27 @@
-"""
-score.py
-Caleb Rasmussen
-This file holds the implementation for the Word class.
-"""
-
-from letter import Letter
-
 import pygame
+from letter import Letter
 import random
+
 
 # RGB colors
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
 
-class Word:
-    """
-    A class that contains a randomly generated moving 
-    word. 
+class Sentence:
 
-    get_word()
-    move_left()
-    draw_text(scren, text, x, y)
-    draw(screen)
-    new_word()
-    """
+    def __init__(self, sentence_list, start_x, start_y):
+        self.word_list = sentence_list
 
-    # Init with random word, and a starting postion
-    def __init__(self, word_list, start_x, start_y):
-        self.word_list = word_list
-        # Generates random word
-        self.word = word_list[random.randint(0, len(self.word_list) - 1)]
+        self.word = sentence_list[random.randint(0, len(self.word_list) - 1)]
 
-        self.start_x = start_x  # X and Y for reset
+        self.start_x = start_x
         self.start_y = start_y
 
-        self.x = start_x    # Moving x and y
+        self.x = start_x
         self.y = start_y
 
-        self.velocity = 2   # level 1, starting speed
+        self.velocity = 3
 
         self.letters = []
 
@@ -55,12 +38,14 @@ class Word:
             current_x += letter.get_width()
 
         self.on_screen = True  # word is on screen
+        self.sentence_length = current_x
 
     # Returns current word as string
     def get_word(self):
         return self.word
 
     # Moves word left based on velocity
+
     def move_left(self):
         self.x -= self.velocity
         for letter in self.letters:
@@ -75,10 +60,13 @@ class Word:
     # Draws word to the screen
     def draw(self, screen):
         # If words is in bounds
-        if self.x > 0:
+        # when the current position of the sentence plus the
+        # length of the sentence has moved to the edge of the screen.
+        if self.x + self.sentence_length > 0:
             for letter in self.letters:
                 letter.draw(screen)
         else:
+            print('word off screen')
             self.on_screen = False      # word went off screen
 
     # Loads a new word and resets x and y

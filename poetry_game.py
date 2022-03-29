@@ -1,51 +1,15 @@
-"""
-main_screen.py
-Caleb Rasmussen
-This file holds the implementation for the MainScreen()
-class.
-"""
-
 import pygame
-from word import Word
+from end_screen import BLACK
 from score import Score
+from sentence import Sentence
 from timer import Timer
 from wpm import WPM
 from game import Game
 from pygame import mixer
 
 
-import os.path
-from os import path
+class PoetryScreen(Game):
 
-# RGB Colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-GREEN = (0, 128, 0)
-ORANGE = (255, 165, 0)
-RED = (255, 0, 0)
-
-
-class MainScreen(Game):
-    """
-    A class that contains the main screen of the Jungle Typer
-    game. It handles the moving words, input box, levels, scoring,
-    and lives counter.
-
-    init()
-    get_score()
-    end()
-    run(screen)
-    handle_logic()
-    handle_event(event)
-    draw(screen)
-    draw_text(screen, text, x, y)
-    draw_input(screen)
-    draw_level(screen)
-    draw_lives(screen)
-    level_up()
-    """
-
-    # Init: sets default values
     def __init__(self, filename):
         super().__init__(filename)
 
@@ -53,22 +17,19 @@ class MainScreen(Game):
         mixer.music.play()
 
         # Init 3 words and put into screen words list
-        word1 = Word(self.word_list, 1000, 150)
-        word2 = Word(self.word_list, 1300, 225)
-        word3 = Word(self.word_list, 1600, 300)
-        self.screen_words = [word1, word2, word3]
+        sentence = Sentence(self.word_list, 1000, 150)
+        self.poetry_words = sentence.get_word().split()
+        self.screen_words = [sentence]
 
         self.jeff_count = 0
         self.jeff_screen = False
 
-    # Runs the program through methods
     def run(self, screen):
         self.handle_logic()     # handles game logic
+        self.draw_instructions(screen)
         self.draw(screen)       # draws elements to screen
 
-    # Handles game logic of lives, leveling up and word location
     def handle_logic(self):
-        # If there no lives, end screen
         if self.time.get_curr_time() >= self.time.end_time:
             self.screen_end = True
 
@@ -80,8 +41,8 @@ class MainScreen(Game):
         for word in self.screen_words:
             if word.on_screen == False:
                 word.new_word()  # reset word
+                self.poetry_words = word.get_word().split()
 
-    # Handles game events
     def handle_event(self, event):
         # Quits program on exit
         if event.type == pygame.QUIT:
@@ -96,27 +57,39 @@ class MainScreen(Game):
                 if len(self.user_text) > 0:
                     self.user_text = self.user_text[:-1]
 
-            # Return is pressed
+            # Return key is pressed
             elif event.key == pygame.K_RETURN:
                 for word in self.screen_words:
-                    if self.user_text == word.get_word():
-                        # if word is correct
-                        word.new_word()
-                        self.wpm.correct_word(
-                            self.time.get_curr_time())
-                        self.score.add(len(word.get_word()))     # add to score
+                    word.new_word()
+                    self.poetry_words = word.get_word().split()
 
-                    elif self.user_text == 'jeff':
+                    if self.user_text == 'jeff':
                         self.user_text = ''
                         self.jeff_count += 1
-                        if self.jeff_count == 3:
+                        if self.jeff_count == 4:
                             self.screen_end = True
                             self.jeff_screen = True
 
-                self.user_text = ""     # reset user text
+                self.user_text = ""
 
+            elif event.key == pygame.K_SPACE:
+                # compare the users most recent word, based on spaces
+                # with the poetry queue
+                if len(self.user_text) > 0:
+                    self.user_text = self.user_text + ' '
+                    recent_word = self.user_text.split()[-1]
+                    if recent_word == self.poetry_words[0]:
+                        del self.poetry_words[0]
+                        self.wpm.correct_word(self.time.get_curr_time())
+                        self.score.add(len(recent_word))
             else:
                 self.user_text += event.unicode      # adds character to user_text
 
             for word in self.screen_words:
                 word.show_completion(self.user_text)
+
+    def draw_instructions(self, screen):
+        font = pygame.font.Font(None, 40)
+        instructions = 'Press enter for new sentence'
+        text = font.render(instructions, True, BLACK)
+        self.draw_text(screen, text, 500, 436)

@@ -30,6 +30,8 @@ class StartScreen():
     def __init__(self):
         self.screen_end = False
         self.game_mode = ""
+        
+        self.jeff_screen = False
 
     # Runs the program through other methods
     def run(self, screen):

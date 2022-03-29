@@ -11,10 +11,12 @@ from timer import Timer
 from end_screen import EndScreen
 from start_screen import StartScreen
 from main_screen import MainScreen
+from poetry_game import PoetryScreen
 import pygame
 import os
 from pygame.locals import *
 from pygame import mixer
+from jeff import Jeff
 
 
 # MAIN
@@ -25,9 +27,8 @@ def main():
     pygame.font.init()
     pygame.mixer.init()
     clock = pygame.time.Clock()
-    mixer.music.load('jeff.mp3')
+    mixer.music.load('MenuMusic.mp3')
     mixer.music.play()
-
 
     # Set screen dimensions
     SCREEN_WIDTH = 1000
@@ -57,10 +58,13 @@ def main():
                 if current_screen.game_mode == 'words':      # main
                     current_screen = MainScreen(filename)
                 else:
-                    current_screen = MainScreen(filename_poetry)
+                    current_screen = PoetryScreen(filename_poetry)
 
                 screen_count += 1
                 # timer.start_timer()
+
+            elif current_screen.jeff_screen == True:
+                current_screen = Jeff('jeff.txt')
 
             elif screen_count == 1:         # End Screen
                 score = current_screen.get_score()
