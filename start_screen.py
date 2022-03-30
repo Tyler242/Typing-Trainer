@@ -91,7 +91,7 @@ class StartScreen():
     # Draws poerty lines mode button on screen
     def draw_poerty_button(self, screen):
         font = pygame.font.Font(None, 42)
-        text = font.render("Poerty Lines", True, WHITE)
+        text = font.render("Poetry Lines", True, WHITE)
         screen.blit(text, (555, 280))
 
     # Draws all main screen elements: final score and quit button
